@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Lumen Estate — Дім, у якому світло</title>
+<meta name="theme-color" content="#1A120C" media="(max-width:820px)">
 <meta name="description" content="Бутикове агентство нерухомості у Львові та Києві. Підбираємо житло за світлом.">
 <script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,12 +44,16 @@ h2 em{font-style:normal;color:var(--accent)}
 .menu-open .burger span:last-child{top:21px;transform:rotate(-45deg)}
 /* hero */
 .hero{position:relative;isolation:isolate;overflow:hidden;margin:12px clamp(12px,1.6vw,20px) 0;border-radius:clamp(24px,3vw,36px);min-height:max(640px,min(900px,100svh - 24px));color:#fff;display:flex}
-.hero .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:55% 50%;z-index:-2}
-.shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(to bottom,rgba(60,35,20,.45),rgba(60,35,20,0) 40%,rgba(40,25,15,.6))}
+.media{position:absolute;inset:0;container-type:size;overflow:hidden;pointer-events:none}
+.m-bg{z-index:-2}.m-fg{z-index:2}
+.stage{--w:max(100cqw,calc(100cqh*1.7778));--h:max(100cqh,calc(100cqw*.5625));position:absolute;width:var(--w);height:var(--h);left:calc((100cqw - var(--w))*.55);top:calc((100cqh - var(--h))*.5)}
+.stage picture{display:block;width:100%;height:100%}
+.stage .bg{display:block;width:100%;height:100%}
+.stage .sofa{position:absolute;left:22.7865%;top:54.9074%;width:48.2552%;height:17.3148%}
 .hero-in{width:100%;max-width:1400px;margin:0 auto;padding:clamp(96px,12vw,130px) clamp(20px,3.4vw,48px) clamp(24px,3vw,40px);display:flex;flex-direction:column;justify-content:space-between;gap:48px}
-.big{font-size:clamp(68px,16.5vw,230px);line-height:.86;letter-spacing:-.05em}
-.big .ln{display:block}.big .l2{margin-left:6vw;font-weight:300}
-.hero-bot{display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;align-items:flex-end}
+.big{font-size:clamp(68px,16.5vw,230px);line-height:.86;letter-spacing:-.05em;position:relative;z-index:1}
+.big .ln{display:block}.big .l2{margin-left:6vw;font-weight:300;position:relative;top:.36em}
+.hero-bot{position:relative;z-index:3;display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;align-items:flex-end}
 .copy{max-width:520px}
 .tag{font-size:clamp(26px,3.4vw,46px);line-height:1.05;font-weight:500;text-transform:uppercase;letter-spacing:-.02em}
 .copy p{margin:14px 0 24px;opacity:.94}
@@ -102,9 +107,9 @@ footer b{color:var(--ink)}
 .js .big .ln{overflow:hidden;padding-bottom:.04em}
 .js .big .ln span{display:inline-block;transform:translateY(108%);transition:transform 1.2s cubic-bezier(.2,.7,.1,1)}
 .js .big .l2 span{transition-delay:.12s}
-.js .hero .bg{transform:scale(1.05);transition:transform 2.6s cubic-bezier(.2,.7,.1,1)}
+.js .hero .media{transform:scale(1.05);transition:transform 2.6s cubic-bezier(.2,.7,.1,1)}
 .js .hero .fade{opacity:0;transform:translateY(22px);transition:opacity 1s .55s,transform 1s .55s}
-.loaded .big .ln span,.loaded .hero .bg,.loaded .hero .fade{transform:none;opacity:1}
+.loaded .big .ln span,.loaded .hero .media,.loaded .hero .fade{transform:none;opacity:1}
 /* loader */
 .ld{position:fixed;inset:0;z-index:100;color:#F5EBDD;animation:ldx 0s 3.7s forwards}
 @keyframes ldx{to{visibility:hidden}}
@@ -145,6 +150,8 @@ footer b{color:var(--ink)}
 .oh .btn{width:100%;text-align:center}
 .copy .btn,.form button{width:100%;text-align:center}
 }
+/* mobile: espresso-brown page background */
+@media (max-width:820px){:root,:root[data-theme="light"]{--bg:#1A120C;--ink:#F5EBDD;--muted:#CDB8A3;--accent:#D9A06B}}
 @media (prefers-reduced-motion:reduce){.ld{display:none}*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 </style>
 </head>
@@ -160,8 +167,8 @@ footer b{color:var(--ink)}
 
 <main>
 <section class="hero" id="top" style="margin-top:12px">
-<picture><source type="image/webp" srcset="assets/hero-900.webp 900w, assets/hero-1600.webp 1600w, assets/hero-2560.webp 2560w, assets/hero-3840.webp 3840w" sizes="(max-width:820px) 300vw, 100vw"><img class="bg" src="assets/hero-fallback.jpg" width="3840" height="2160" fetchpriority="high" decoding="async" alt="Вітальня з панорамними вікнами, кам’яною стіною та заходом сонця над горами"></picture>
-<div class="shade"></div>
+<div class="media m-bg"><div class="stage"><picture><source type="image/webp" srcset="assets/hero-900.webp 900w, assets/hero-1600.webp 1600w, assets/hero-2560.webp 2560w, assets/hero-3840.webp 3840w" sizes="(max-width:820px) 300vw, 100vw"><img class="bg" src="assets/hero-fallback.jpg" width="3840" height="2160" fetchpriority="high" decoding="async" alt="Вітальня з панорамними вікнами, кам’яною стіною та заходом сонця над горами"></picture></div></div>
+<div class="media m-fg" aria-hidden="true"><div class="stage"><img class="sofa" src="assets/hero-sofa.webp" alt="" decoding="async"></div></div>
 <div class="hero-in">
 <h1 class="big"><span class="ln"><span>Lumen</span></span><span class="ln l2"><span>Light</span></span></h1>
 <div class="hero-bot">
