@@ -125,9 +125,9 @@ h2 em{font-style:normal;color:var(--accent)}
 .marq::-webkit-scrollbar{display:none}
 .js .marq{overflow:hidden}
 .track{display:flex;width:max-content}
-.js .track{animation:mq 70s linear infinite}
-.marq:hover .track,.marq:focus-within .track{animation-play-state:paused}
-@keyframes mq{to{transform:translateX(-50%)}}
+.js .marq{cursor:grab;touch-action:pan-y;-webkit-user-select:none;user-select:none}
+.js .marq.drag{cursor:grabbing}
+.marq img{-webkit-user-drag:none}
 .q{flex:0 0 auto;width:clamp(290px,31vw,430px);margin:0 20px 0 0;padding:clamp(24px,3vw,32px);border-radius:28px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;gap:28px}
 .q:nth-child(3n+1){background:linear-gradient(160deg,#C98B57,#9A6038)}.q:nth-child(3n+2){background:linear-gradient(160deg,#A8703F,#5E3B25)}.q:nth-child(3n){background:linear-gradient(160deg,#8A5A36,#3E2718)}
 .q p{margin:0;font-size:clamp(18px,1.7vw,21px);line-height:1.4;font-weight:500}
@@ -367,6 +367,26 @@ var tr=d.querySelector('.track');
 if(tr&&!red){Array.prototype.slice.call(tr.children).forEach(function(c){var n=c.cloneNode(true);n.setAttribute('aria-hidden','true');tr.appendChild(n)})}
 var chips=d.querySelectorAll('.chips button'),cards=d.querySelectorAll('#objects .card'),grid=d.querySelector('#objects .grid');
 chips.forEach(function(c){c.addEventListener('click',function(){var f=c.getAttribute('data-f');chips.forEach(function(x){x.setAttribute('aria-pressed',String(x===c))});cards.forEach(function(k){k.hidden=f!=='all'&&(' '+k.getAttribute('data-tags')+' ').indexOf(' '+f+' ')<0;if(!k.hidden)k.classList.add('in')});if(grid)grid.scrollLeft=0})});
+var mqe=d.querySelector('.marq');
+if(tr&&mqe&&!red){var x=0,vel=0,drag=false,hov=false,foc=false,onscr=true,sx=0,sl=0,lx=0,lt=0,last=performance.now(),moved=false;
+function half(){return tr.scrollWidth/2}
+function auto(){return half()/70}
+function wrapX(){var h=half();if(h)x=((x%h)+h)%h}
+function tick(n){var dt=Math.min((n-last)/1000,.05);last=n;
+if(!drag&&onscr){var tgt=(hov||foc)?0:auto();vel+=(tgt-vel)*Math.min(1,dt*(Math.abs(vel)>auto()*3?2.2:4));x+=vel*dt;wrapX();mqe.scrollLeft=x}
+requestAnimationFrame(tick)}
+requestAnimationFrame(tick);
+if('IntersectionObserver' in window)new IntersectionObserver(function(es){onscr=es[0].isIntersecting}).observe(mqe);
+mqe.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse')hov=true});
+mqe.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse')hov=false});
+mqe.addEventListener('focusin',function(){foc=true});mqe.addEventListener('focusout',function(){foc=false});
+mqe.addEventListener('pointerdown',function(e){if(e.pointerType==='mouse'&&e.button!==0)return;drag=true;moved=false;sx=lx=e.clientX;sl=x=mqe.scrollLeft;lt=performance.now();vel=0;mqe.classList.add('drag');try{mqe.setPointerCapture(e.pointerId)}catch(_){}});
+mqe.addEventListener('pointermove',function(e){if(!drag)return;var dx=e.clientX-sx;if(Math.abs(dx)>4)moved=true;x=sl-dx;wrapX();mqe.scrollLeft=x;var n=performance.now(),dt=(n-lt)/1000;if(dt>0){vel=vel*.6+(-(e.clientX-lx)/dt)*.4}lx=e.clientX;lt=n;sl=x+dx});
+function end(){if(!drag)return;drag=false;mqe.classList.remove('drag');if(performance.now()-lt>90)vel=0;vel=Math.max(-2500,Math.min(2500,vel))}
+mqe.addEventListener('pointerup',end);mqe.addEventListener('pointercancel',end);
+mqe.addEventListener('click',function(e){if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
+mqe.addEventListener('dragstart',function(e){e.preventDefault()});
+}
 d.getElementById('fm').addEventListener('submit',function(e){e.preventDefault();this.innerHTML='<div class="ok">Дякуємо! Ми зателефонуємо вам протягом дня.</div>'});
 })();
 </script>
