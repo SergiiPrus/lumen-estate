@@ -50,14 +50,36 @@ h2 em{font-style:normal;color:var(--accent)}
 .hero.tech .big{color:transparent}
 .js .hero.tech .big .ln span{transform:none!important;transition:none!important}
 .stage{--w:max(100cqw,calc(100cqh*1.7778));--h:max(100cqh,calc(100cqw*.5625));position:absolute;width:var(--w);height:var(--h);left:calc((100cqw - var(--w))*.55);top:calc((100cqh - var(--h))*.5)}
-.stage picture{display:block;width:100%;height:100%}
-.stage .bg{display:block;width:100%;height:100%}
-.stage .sofa{position:absolute;left:22.7865%;top:54.9074%;width:48.2552%;height:17.3148%}
-.hero-in{width:100%;max-width:1400px;margin:0 auto;padding:clamp(96px,12vw,130px) clamp(20px,3.4vw,48px) clamp(24px,3vw,40px);display:flex;flex-direction:column;justify-content:space-between;gap:48px}
+.stage .lyr{position:absolute;inset:0;display:block;width:100%;height:100%}
+.stage .lyr img{display:block;width:100%;height:100%}
+.stage .sofa{position:absolute;left:23.0037%;top:56.1198%;width:47.5458%;height:23.9583%}
+.stage .noon{opacity:var(--a,0)}.stage .eve{opacity:var(--b,1)}
+.m-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,16,9,var(--sh,.2)) 0%,rgba(26,16,9,calc(var(--sh,.2)*.55)) 26%,rgba(26,16,9,0) 46%,rgba(26,16,9,0) 84%,rgba(26,16,9,calc(var(--sh,.2)*.8)) 100%)}
+/* daylight control */
+.sun{position:absolute;z-index:4;top:clamp(96px,12vw,130px);right:clamp(20px,3.4vw,48px);width:280px;padding:16px 18px 14px;border-radius:24px;background:rgba(30,20,13,.24)}
+.sun-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13px}
+.sun-top span{opacity:.92}
+.sun-t{font-size:22px;font-weight:500;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.sun-t small{font-size:13px;font-weight:400;opacity:.9;margin-left:6px}
+.sun-dial{position:relative;margin:6px 0 10px;height:78px}
+.sun-dial svg{display:block;width:100%;height:100%;overflow:visible}
+.sun-dial .arc{fill:none;stroke:rgba(255,255,255,.55);stroke-width:1.2;stroke-dasharray:3 4}
+.sun-dial .hz{stroke:rgba(255,255,255,.4);stroke-width:1}
+.sun-dial .glow{fill:var(--sun,#FF9B4A);opacity:.35}
+.sun-dial .disc{fill:var(--sun,#FF9B4A);stroke:#fff;stroke-width:1.5}
+.sun-in{position:absolute;inset:-6px -8px;width:calc(100% + 16px);height:calc(100% + 12px);margin:0;opacity:0;cursor:grab;touch-action:pan-y}
+.sun-in:active{cursor:grabbing}
+.sun:has(.sun-in:focus-visible){outline:2px solid #fff;outline-offset:3px}
+.sun-ks{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.sun-ks button{padding:8px 0;border:1px solid rgba(255,255,255,.4);border-radius:999px;background:rgba(255,255,255,.12);color:#fff;font:inherit;font-size:13px;cursor:pointer;transition:background .2s,border-color .2s}
+.sun-ks button:hover{background:rgba(255,255,255,.24)}
+.sun-ks button[aria-pressed=true]{background:#fff;color:#2A1D14;border-color:#fff}
+.hero-in{position:relative;width:100%;max-width:1400px;margin:0 auto;padding:clamp(96px,12vw,130px) clamp(20px,3.4vw,48px) clamp(24px,3vw,40px);display:flex;flex-direction:column;justify-content:space-between;gap:48px}
 .big{font-size:clamp(68px,16.5vw,230px);line-height:.86;letter-spacing:-.05em;position:relative;z-index:1;top:.16em}
 .big .ln{display:block}.big .l2{margin-left:6vw;font-weight:300;position:relative;top:.02em}
 .hero-bot{position:relative;z-index:3;display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;align-items:flex-end}
-.copy{max-width:520px}
+.copy{max-width:520px;text-shadow:0 1px 2px rgba(26,16,9,.3),0 2px 26px rgba(26,16,9,.5)}
+.copy .btn{text-shadow:none}
 .tag{font-size:clamp(26px,3.4vw,46px);line-height:1.05;font-weight:500;text-transform:uppercase;letter-spacing:-.02em}
 .copy p{margin:14px 0 24px;opacity:.94}
 .side{display:flex;flex-wrap:wrap;gap:14px;align-items:stretch}
@@ -161,6 +183,7 @@ footer b{color:var(--ink)}
 .bar{padding:8px 8px 8px 20px}
 .hero-bot{flex-direction:column;align-items:stretch}.side{flex-direction:column}.stat{min-width:0}.search{min-width:0}
 .big .l2{margin-left:4vw}
+.sun{position:relative;top:auto;right:auto;width:auto;max-width:420px}.sun-dial{height:62px}
 }
 /* phone */
 @media (max-width:640px){
@@ -192,11 +215,21 @@ footer b{color:var(--ink)}
 
 <main>
 <section class="hero" id="top" style="margin-top:12px">
-<div class="media m-bg"><div class="stage"><picture><source type="image/webp" srcset="assets/hero-900.webp 900w, assets/hero-1600.webp 1600w, assets/hero-2560.webp 2560w, assets/hero-3840.webp 3840w" sizes="(max-width:820px) 300vw, 100vw"><img class="bg" src="assets/hero-fallback.jpg" width="3840" height="2160" fetchpriority="high" decoding="async" alt="Вітальня з панорамними вікнами, кам’яною стіною та заходом сонця над горами"></picture></div></div>
+<div class="media m-bg"><div class="stage">
+<picture class="lyr" data-k="morning"><source type="image/webp" data-srcset="assets/hero-morning-900.webp 900w, assets/hero-morning-1600.webp 1600w, assets/hero-morning-2560.webp 2560w" sizes="(max-width:820px) 300vw, 100vw"><img alt="" width="2560" height="1440" decoding="async"></picture>
+<picture class="lyr noon" data-k="noon"><source type="image/webp" data-srcset="assets/hero-noon-900.webp 900w, assets/hero-noon-1600.webp 1600w, assets/hero-noon-2560.webp 2560w" sizes="(max-width:820px) 300vw, 100vw"><img alt="" width="2560" height="1440" decoding="async"></picture>
+<picture class="lyr eve"><source type="image/webp" srcset="assets/hero-evening-900.webp 900w, assets/hero-evening-1600.webp 1600w, assets/hero-evening-2560.webp 2560w" sizes="(max-width:820px) 300vw, 100vw"><img src="assets/hero-evening.jpg" width="2560" height="1440" fetchpriority="high" decoding="async" alt="Вітальня з панорамними вікнами, кам’яною стіною й видом на гори та озеро"></picture>
+</div></div>
 <canvas class="tt" aria-hidden="true"></canvas>
-<div class="media m-fg" aria-hidden="true"><div class="stage"><img class="sofa" src="assets/hero-sofa.webp" alt="" decoding="async"></div></div>
+<div class="media m-fg" aria-hidden="true"><div class="stage"><img class="sofa" data-k="morning" alt="" decoding="async"><img class="sofa noon" data-k="noon" alt="" decoding="async"><img class="sofa eve" src="assets/sofa-evening.webp" alt="" decoding="async"></div></div>
 <div class="hero-in">
 <h1 class="big"><span class="ln"><span>Lumen</span></span><span class="ln l2"><span>Light</span></span></h1>
+<div class="sun glass fade" id="sun" hidden>
+<div class="sun-top"><span id="sunL">Світло в домі</span><output class="sun-t" id="sunT" for="sunR">19:30</output></div>
+<div class="sun-dial"><svg viewBox="0 0 244 78" aria-hidden="true"><line class="hz" x1="0" y1="70" x2="244" y2="70"/><path class="arc" d="M14 70A108 60 0 0 1 230 70"/><circle class="glow" id="sunG" cx="122" cy="10" r="14"/><circle class="disc" id="sunD" cx="122" cy="10" r="7"/></svg>
+<input class="sun-in" id="sunR" type="range" min="360" max="1260" step="5" value="1170" aria-labelledby="sunL"></div>
+<div class="sun-ks"><button type="button" data-t="420">Ранок</button><button type="button" data-t="780">День</button><button type="button" data-t="1170">Вечір</button></div>
+</div>
 <div class="hero-bot">
 <div class="copy fade"><div class="tag">Дім, у якому світло</div>
 <p>Підбираємо житло за орієнтацією вікон, годинами сонця й освітленістю кімнат у Львові та Києві.</p>
@@ -277,6 +310,7 @@ if(tr&&!red){Array.prototype.slice.call(tr.children).forEach(function(c){var n=c
 d.getElementById('fm').addEventListener('submit',function(e){e.preventDefault();this.innerHTML='<div class="ok">Дякуємо! Ми зателефонуємо вам протягом дня.</div>'});
 })();
 </script>
+<script src="assets/daylight.js" defer></script>
 <script src="assets/tech-text.js" defer></script>
 </body>
 </html>
