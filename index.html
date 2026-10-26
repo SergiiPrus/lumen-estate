@@ -201,6 +201,53 @@ footer b{color:var(--ink)}
 }
 /* mobile: espresso-brown page background */
 @media (max-width:820px){:root,:root[data-theme="light"]{--bg:#1A120C;--ink:#F5EBDD;--muted:#CDB8A3;--accent:#D9A06B}}
+/* ===== mobile: one screen, one thought, one glass ===== */
+.facts,.chips,.more{display:none}
+@media (max-width:820px){
+/* hero = one screen: title on top, photo free, tagline + CTA + daylight pill at the bottom */
+.hero{min-height:max(560px,calc(100svh - 24px))}
+.hero-in{justify-content:flex-start;gap:16px;padding-bottom:calc(var(--g) - var(--m) + 4px)}
+.side,.copy p{display:none}
+.copy .btn{margin-top:16px}
+.sun{margin-top:auto;max-width:none;display:flex;align-items:center;gap:10px;padding:5px 5px 5px 14px;border-radius:999px}
+.sun-top{gap:8px;align-items:center}
+.sun-top span,.sun-t small,.sun-dial{display:none}
+.sun-top::before{content:"";flex:none;width:10px;height:10px;border-radius:50%;background:var(--sun,#FF9B4A);box-shadow:0 0 0 4px rgba(255,255,255,.18)}
+.sun-t{font-size:16px}
+.sun-ks{flex:1;display:flex;gap:2px;padding:3px;border-radius:999px;background:rgba(20,12,6,.22)}
+.sun-ks button{flex:1;padding:9px 0;border:0;background:none;font-size:13px}
+/* facts: plain typographic row instead of a glass card */
+.facts{display:block;margin-top:28px}
+.fx{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(245,235,221,.14);border-bottom:1px solid rgba(245,235,221,.14)}
+.fx div{min-width:0;padding:20px 10px 20px 14px;border-left:1px solid rgba(245,235,221,.14)}
+.fx div:first-child{padding-left:0;border-left:0}
+.fx b{display:block;font-size:34px;font-weight:500;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.fx span{display:block;margin-top:8px;font-size:12.5px;line-height:1.3;color:var(--muted)}
+.facts+section{margin-top:56px}
+/* objects: filter chips + catalogue link */
+.oh .btn{display:none}
+.oh{margin-bottom:18px}
+.chips{display:flex;gap:8px;overflow-x:auto;margin:0 calc(-1*var(--g)) 20px;padding:0 var(--g);scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;padding:10px 16px;border-radius:999px;border:1px solid rgba(245,235,221,.24);background:none;color:var(--ink);font:inherit;font-size:14px;cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.more{display:block;margin-top:22px;padding:16px 0;border-top:1px solid rgba(245,235,221,.14);border-bottom:1px solid rgba(245,235,221,.14);font-weight:500;color:var(--accent)}
+.more::after{content:" →"}
+}
+@media (max-width:640px){
+/* photo rows become swipeable, captions move under the photo (no glass) */
+.ph,.card,.grid .card:last-child{aspect-ratio:auto;overflow:visible;background:none;border-radius:0}
+.ph img,.card img{position:relative;inset:auto;height:auto;aspect-ratio:4/5;border-radius:22px;background:#9A6038}
+.ph:hover img,.card:hover img{transform:none}
+.cap,.plate{position:static;height:auto;padding:12px 2px 0;background:none;border:0;border-radius:0;-webkit-backdrop-filter:none;backdrop-filter:none;color:var(--ink)}
+.cap{color:var(--muted)}
+.grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin-right:calc(-1*var(--g));padding-right:var(--g);scrollbar-width:none}
+.grid::-webkit-scrollbar{display:none}
+.card{flex:0 0 82%;scroll-snap-align:start}
+.plate h3{font-size:18px}
+.plate p{color:var(--muted);opacity:1}
+.plate b{margin-top:8px;color:var(--accent)}
+}
 @media (prefers-reduced-motion:reduce){.marq{overflow-x:auto;-webkit-mask-image:none;mask-image:none}.ld{display:none}*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 </style>
 </head>
@@ -244,6 +291,12 @@ footer b{color:var(--ink)}
 </div></div></div>
 </section>
 
+<section class="facts" aria-label="Lumen у цифрах"><div class="wrap"><div class="fx">
+<div><b>480+</b><span>родин знайшли дім зі світлом</span></div>
+<div><b>12</b><span>років досвіду</span></div>
+<div><b>96%</b><span>рекомендують нас</span></div>
+</div></div></section>
+
 <section id="light"><div class="wrap">
 <div class="lh"><div class="eyebrow rv">Чому світло</div>
 <div><h2 class="rv">Світло визначає, як ви <em>живете</em> у своєму домі щодня</h2>
@@ -256,11 +309,13 @@ footer b{color:var(--ink)}
 
 <section id="objects"><div class="wrap">
 <div class="oh"><h2 class="rv">Обрані <em>об’єкти</em></h2><a class="btn o" href="#contact">Увесь каталог</a></div>
+<div class="chips" role="group" aria-label="Фільтр об’єктів"><button type="button" aria-pressed="true" data-f="all">Усі</button><button type="button" aria-pressed="false" data-f="lviv">Львів</button><button type="button" aria-pressed="false" data-f="kyiv">Київ</button><button type="button" aria-pressed="false" data-f="s">Південь</button><button type="button" aria-pressed="false" data-f="e">Схід</button><button type="button" aria-pressed="false" data-f="w">Захід</button><button type="button" aria-pressed="false" data-f="r3">3+ кімнати</button></div>
 <div class="grid">
-<article class="card rv"><img src="assets/object-1.jpg" alt="Двосвітна вітальня із заходом сонця" loading="lazy"><div class="glass plate"><h3>ЖК «Світанок», Львів</h3><p>3 кімнати · 94 м² · південно-західні вікна</p><b>від $128 000</b></div></article>
-<article class="card rv"><img src="assets/object-2.jpg" alt="Квартира із сонцем над містом" loading="lazy"><div class="glass plate"><h3>ЖК «Сонячний квартал», Київ</h3><p>2 кімнати · 67 м² · східні вікна</p><b>від $96 000</b></div></article>
-<article class="card rv"><img src="assets/object-3.jpg" alt="Сучасний будинок на заході сонця" loading="lazy"><div class="glass plate"><h3>Резиденція «Обрій», Львівщина</h3><p>5 кімнат · 210 м² · панорамні вікна</p><b>від $410 000</b></div></article>
-</div></div></section>
+<article class="card rv" data-tags="lviv s w r3"><img src="assets/object-1.jpg" alt="Двосвітна вітальня із заходом сонця" loading="lazy"><div class="glass plate"><h3>ЖК «Світанок», Львів</h3><p>3 кімнати · 94 м² · південно-західні вікна</p><b>від $128 000</b></div></article>
+<article class="card rv" data-tags="kyiv e"><img src="assets/object-2.jpg" alt="Квартира із сонцем над містом" loading="lazy"><div class="glass plate"><h3>ЖК «Сонячний квартал», Київ</h3><p>2 кімнати · 67 м² · східні вікна</p><b>від $96 000</b></div></article>
+<article class="card rv" data-tags="lviv s e w r3"><img src="assets/object-3.jpg" alt="Сучасний будинок на заході сонця" loading="lazy"><div class="glass plate"><h3>Резиденція «Обрій», Львівщина</h3><p>5 кімнат · 210 м² · панорамні вікна</p><b>від $410 000</b></div></article>
+</div>
+<a class="more" href="#contact">Увесь каталог · 120+ об’єктів</a></div></section>
 
 <section id="reviews"><div class="wrap"><h2 class="rv">Кажуть <em>клієнти</em></h2></div>
 <div class="marq"><div class="track">
@@ -309,6 +364,8 @@ d.addEventListener('click',function(){dds.forEach(cl)});
 addEventListener('keydown',function(e){if(e.key==='Escape')dds.forEach(cl)});
 var tr=d.querySelector('.track');
 if(tr&&!red){Array.prototype.slice.call(tr.children).forEach(function(c){var n=c.cloneNode(true);n.setAttribute('aria-hidden','true');tr.appendChild(n)})}
+var chips=d.querySelectorAll('.chips button'),cards=d.querySelectorAll('#objects .card'),grid=d.querySelector('#objects .grid');
+chips.forEach(function(c){c.addEventListener('click',function(){var f=c.getAttribute('data-f');chips.forEach(function(x){x.setAttribute('aria-pressed',String(x===c))});cards.forEach(function(k){k.hidden=f!=='all'&&(' '+k.getAttribute('data-tags')+' ').indexOf(' '+f+' ')<0;if(!k.hidden)k.classList.add('in')});if(grid)grid.scrollLeft=0})});
 d.getElementById('fm').addEventListener('submit',function(e){e.preventDefault();this.innerHTML='<div class="ok">Дякуємо! Ми зателефонуємо вам протягом дня.</div>'});
 })();
 </script>
